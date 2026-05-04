@@ -1,21 +1,28 @@
 name: Deploy Website
+
 on:
   push:
     branches:
       - main
+
 permissions:
   contents: write
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    # هاد السطر هو اللي بحل المشكلة وبجبره يستخدم Node 24
+
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout code
-        [cite_start]uses: actions/checkout@v4 [cite: 68-69]
+        uses: actions/checkout@v4
+
       - name: Deploy to GitHub Pages
-        [cite_start]uses: peaceiris/actions-gh-pages@v4 [cite: 70-71]
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          [cite_start]github_token: ${{ secrets.GITHUB_TOKEN }} [cite: 73]
-          [cite_start]publish_dir: ./ [cite: 73]
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          force_orphan: true
